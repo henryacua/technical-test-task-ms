@@ -50,7 +50,9 @@ export class UserController {
   }
 
   @Post('login')
-  login(@Body() userData: UserLoginDto): Promise<{ token: string }> {
+  login(
+    @Body() userData: UserLoginDto,
+  ): Promise<{ token: string; userId: number }> {
     return this.userService.login(userData);
   }
 }

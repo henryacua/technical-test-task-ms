@@ -80,7 +80,9 @@ export class UserService {
     }
   }
 
-  async login(userLoginData: UserLoginDto): Promise<{ token: string }> {
+  async login(
+    userLoginData: UserLoginDto,
+  ): Promise<{ token: string; userId: number }> {
     const { email, password } = userLoginData;
 
     const user = await this.getUserByEmail(email);
@@ -97,7 +99,7 @@ export class UserService {
       secret: process.env.JWT_SECRET,
     });
 
-    return { token };
+    return { token, userId: user.id };
   }
 
   private async getUserByEmail(email: string): Promise<User> {
