@@ -15,7 +15,7 @@ export class UserRepository {
     const [data, total] = await this.entityManager
       .getRepository(User)
       .createQueryBuilder('user')
-      .select(['user.id', 'user.name', 'user.email', 'user.roles'])
+      .select(['user.id', 'user.name', 'user.email'])
       .skip((page - 1) * limit)
       .take(limit)
       .getManyAndCount();
@@ -27,7 +27,7 @@ export class UserRepository {
     return this.entityManager
       .getRepository(User)
       .createQueryBuilder('user')
-      .select(['user.id', 'user.name', 'user.email', 'user.roles']) // Excluir el campo 'password'
+      .select(['user.id', 'user.name', 'user.email']) // Excluir el campo 'password'
       .where('user.id = :userId', { userId })
       .getOne();
   }
@@ -59,7 +59,7 @@ export class UserRepository {
     return this.entityManager
       .getRepository(User)
       .createQueryBuilder('user')
-      .select(['user.id', 'user.name', 'user.email', 'user.roles'])
+      .select(['user.id', 'user.name', 'user.email'])
       .where('user.id = :userId', { userId })
       .getOne();
   }
