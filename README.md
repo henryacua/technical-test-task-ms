@@ -43,33 +43,29 @@ $ npm run start:dev
 
 # production mode
 $ npm run start:prod
+
 ```
 
-## Run tests
+You can find files such as the docker-compose and the DB_SYNC environment variable which were added in order to facilitate the project build, with which you can quickly perform database migrations.
 
-```bash
-# unit tests
-$ npm run test
+## Technical decisions
 
-# e2e tests
-$ npm run test:e2e
+For the present project it was decided to choose a layered architecture that gives each folder a specific responsibility. is separated into "layers" that collaborate with each other
 
-# test coverage
-$ npm run test:cov
-```
+is separated into layers that collaborate with each other to distribute backend responsibilities.
+These layers are divided as follows:
+Controllers -> It is in charge of being the first contact of the REST API requests, in charge of routing and in this case adding data validation through the use of validationPipe, where the class-validator library is used to set the appropriate decorator for each input property in the dtos folders.
+Services -> takes care of the business logic, in which you can add validation of specific cases other than the input data, and more requirement-specific behaviours 
+Repository -> Here we will find in an organized way the requests to the database where its purpose would be to standardize and reuse the mentioned ones.
 
-## Deployment
+two folders were created across the whole application in order to be taken into account as a possible tool to use depending on the needs, in my work I like to emphasize the order of everything related to software development because as Barbara Hemphill said ‘Disorder is nothing more than postponed decisions’.
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+1 . We will add a small description of the value of the common folder in which we will find the enum constants and interfaces used to maintain a standard and a constant use at hand of possible types which can be reusable.
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+2. Secondly we will talk about the Guards folder in which we will find the code of the responsible for the endpoint security decorated with the annotation @UseGuards(AuthGuard) so the authentication token provided by the login service will be validated.
 
-```bash
-$ npm install -g mau
-$ mau deploy
-```
+Finally, we will talk about the fact that for each entity complete CRUDs were created for the additional purpose of maintaining this need for companies to realise a complete system for all data.
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
 
 ## Resources
 
@@ -87,12 +83,6 @@ Check out a few resources that may come in handy when working with NestJS:
 ## Support
 
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
 
 ## License
 
